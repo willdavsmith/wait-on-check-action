@@ -12,6 +12,10 @@ wait = ENV["WAIT_INTERVAL"]
 workflow_name = ENV["RUNNING_WORKFLOW_NAME"]
 api_endpoint = ENV.fetch("API_ENDPOINT", "")
 ignore_checks = ENV["IGNORE_CHECKS"]
+repo = ENV["REPO"]
+if repo.nil? || repo.empty?
+  repo = ENV['GITHUB_REPOSITORY']
+end
 
 GithubChecksVerifier.configure do |config|
   config.allowed_conclusions = allowed_conclusions.split(",").map(&:strip)
@@ -22,7 +26,7 @@ GithubChecksVerifier.configure do |config|
   config.client.api_endpoint = api_endpoint unless /\A[[:space:]]*\z/.match?(api_endpoint)
   config.client.access_token = token
   config.ref = ref
-  config.repo = ENV["GITHUB_REPOSITORY"]
+  config.repo = repo
   config.verbose = verbose
   config.wait = wait.to_i
   config.workflow_name = workflow_name

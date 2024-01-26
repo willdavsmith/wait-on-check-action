@@ -1,6 +1,6 @@
 # action.yml
 name: "Wait on check"
-author: "progapandist"
+author: "willdavsmith"
 description: "Wait on a certain check to pass for commit"
 inputs:
   allowed-conclusions:
@@ -42,6 +42,10 @@ inputs:
     description: "Print logs if true"
     required: false
     default: true
+  repo:
+    description: "Owner and repo name, e.g. willdavsmith/wait-on-check"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -78,6 +82,7 @@ runs:
         WAIT_INTERVAL: ${{ inputs.wait-interval }}
         RUNNING_WORKFLOW_NAME: ${{ inputs.running-workflow-name }}
         API_ENDPOINT: ${{ inputs.api-endpoint }}
+        REPO: ${{ inputs.repo }}
 branding:
   icon: "check-circle"
   color: "green"
