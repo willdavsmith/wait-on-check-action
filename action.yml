@@ -1,5 +1,5 @@
 # action.yml
-name: "Wait on check"
+name: "Wait on repo check"
 author: "willdavsmith"
 description: "Wait on a certain check to pass for commit"
 inputs:
