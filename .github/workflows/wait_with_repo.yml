@@ -1,0 +1,22 @@
+name: Wait for check name
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  wait-for-check-name:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Wait on tests with repo specified
+        uses: ./
+        with:
+          ref: ${{ github.sha }}
+          repo: willdavsmith/wait-on-check-action
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10 # seconds
+          running-workflow-name: wait-for-check-name
+          check-name: wait-on-me
+
+      - name: Success
+        run: echo 'Success!'
